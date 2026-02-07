@@ -7,13 +7,18 @@ import { loadCart } from "../data/cart.js";
 // import "../data/backend-practice.js";
 
 async function loadPage() {
-  await loadProductsFetch();
+  try {
+    await loadProductsFetch();
 
-  const value = await new Promise((resolve) => {
-    loadCart(() => {
-      resolve();
+    const value = await new Promise((resolve, reject) => {
+      loadCart(() => {
+        // reject("error3");
+        resolve();
+      });
     });
-  });
+  } catch (error) {
+    console.log("error loading page");
+  }
 
   renderOrderSummary();
   renderPaymentSummary();
